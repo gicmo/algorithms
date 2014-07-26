@@ -1,0 +1,130 @@
+% THE BEER-WARE LICENSE
+% adrian.stoewer@rz.ifi.lmu.de wrote this file. As long as you retain this notice
+% you can do whatever you want with this stuff. If we meet some day, and you think
+% this stuff is worth it, you can buy me a beer in return.
+
+
+\documentclass{beamer}
+
+% Standard packages
+
+\usepackage[english]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{times}
+\usepackage[T1]{fontenc}
+
+% Theme listings
+
+\usepackage{minted}
+\usemintedstyle{native}
+\newminted{cpp}{
+    gobble=0,
+    linenos,
+    samepage=true,
+    frame=none,
+    fontsize=\scriptsize
+}
+
+% Theme slides
+
+\usetheme{Warsaw}
+\setbeamercolor{normal text}{fg=white,bg=black!90}
+\setbeamercolor{structure}{fg=white}
+\setbeamercolor{alerted text}{fg=red!85!black}
+\setbeamercolor{item projected}{use=item,fg=black,bg=item.fg!35}
+\setbeamercolor*{palette primary}{use=structure,fg=structure.fg}
+\setbeamercolor*{palette secondary}{use=structure,fg=structure.fg!95!black}
+\setbeamercolor*{palette tertiary}{use=structure,fg=structure.fg!90!black}
+\setbeamercolor*{palette quaternary}{use=structure,fg=structure.fg!95!black,bg=black!80}
+\setbeamercolor*{framesubtitle}{fg=white}
+\setbeamercolor*{block title}{parent=structure,bg=black!60}
+\setbeamercolor*{block body}{fg=black,bg=black!10}
+\setbeamercolor*{block title alerted}{parent=alerted text,bg=black!15}
+\setbeamercolor*{block title example}{parent=example text,bg=black!15}
+
+%% Info
+
+\title[BST and Heaps] 
+{
+    Introduction to tree data structures with binary search tree 
+    and heap as examples
+}
+
+\author[Adrian Stoewer]{
+    Adrian~Stoewer
+}
+
+%% START
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+  \tableofcontents
+\end{frame}
+
+
+\section{Trees as data structures}
+
+\subsection{Introduction}
+
+
+\section{Binary search tree (BST)}
+
+\subsection{Introduction}
+
+\begin{frame}[t]{What is a BST}
+    \begin{itemize}
+        \item Each node has a left child, right child and some value.
+        \item Each value is only contained once (represents a set).
+        \item The value of the left child is always smaller than the parents value.
+        \item The value of the right child is always larger than the parents value. 
+    \end{itemize}
+\end{frame}
+
+
+\subsection{Implementation}
+
+\begin{frame}[fragile]{Basic BST node structure}
+\begin{cppcode}
+struct bst {
+    int value;
+
+    bst *parent;
+    bst *left;
+    bst *right;
+
+    bst(int value, bst *parent=nullptr, bst *left=nullptr, 
+        bst *right=nullptr);
+};
+\end{cppcode}
+\end{frame}
+
+
+\begin{frame}[fragile]{Add node to BST}
+\begin{cppcode}
+void bst_add(bst *&tree, int value, bst *parent=nullptr);
+
+
+void bst_add(bst *&tree, int value, bst *parent) {
+    if (!tree)
+        tree = new bst(value, parent);
+    else if (value < tree->value)
+        bst_add(tree->left, value, tree);
+    else if (value > tree->value)
+        bst_add(tree->right, value, tree);
+}
+\end{cppcode}
+\end{frame}
+
+
+\section{Heaps}
+
+\subsection{Introduction}
+
+\subsection{Implemantation}
+
+
+\end{document}
