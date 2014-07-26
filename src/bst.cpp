@@ -23,6 +23,7 @@ void bst_print(bst *tree) {
     level_curr.push(tree);
 
     string start, gap;
+    cout << endl;
 
     for (int depth = 1; depth <= depth_max; depth++) {
         start.resize((size_t) (pow(2, depth_max - depth) - 1), ' ');
@@ -50,15 +51,17 @@ void bst_print(bst *tree) {
         level_curr = level_next;
         level_next = queue<bst*>();
     }
+
+    cout << endl;
 }
 
-void bst_add(bst *&tree, int value) {
+void bst_add(bst *&tree, int value, bst *parent) {
     if (!tree)
-        tree = new bst(value);
+        tree = new bst(value, parent);
     else if (value < tree->value)
-        bst_add(tree->left, value);
+        bst_add(tree->left, value, tree);
     else if (value > tree->value)
-        bst_add(tree->right, value);
+        bst_add(tree->right, value, tree);
 }
 
 int bst_depth(bst *tree, int depth) {
@@ -76,6 +79,13 @@ void bst_remove(bst *tree, int value) {
 
 }
 
-bool bst_search(bst *tree) {
-    return false;
+bool bst_search(bst *tree, int value) {
+    if (!tree)
+        return false;
+    else if (value < tree->value)
+        return bst_search(tree->left, value);
+    else if (value > tree->value)
+        return bst_search(tree->right, value);
+    else
+        return true;
 }

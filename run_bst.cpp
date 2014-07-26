@@ -10,12 +10,12 @@ using namespace std;
 
 int main(int argc, char **argv) {
 
+    cout << "\n------empty tree-------\n\n";
+
     bst *tree = nullptr;
-
     cout << "depth:\t" << bst_depth(tree) << endl;
-    bst_print(tree);
 
-    cout << "\n-----------------------\n";
+    cout << "\n------add numbers------\n\n";
 
     bst_add(tree, 5);
     bst_add(tree, 3);
@@ -30,7 +30,21 @@ int main(int argc, char **argv) {
     cout << "depth:\t" << bst_depth(tree) << endl;
     bst_print(tree);
 
-    cout << "\n-----------------------\n";
+    cout << "\n---------search---------\n\n";
+
+    cout << "contains 7:  " << bst_search(tree, 7) << endl;
+    cout << "contains 8:  " << bst_search(tree, 8) << endl;
+    cout << "contains 6:  " << bst_search(tree, 6) << endl;
+    cout << "contains 5:  " << bst_search(tree, 5) << endl;
+    cout << "contains 1:  " << bst_search(tree, 1) << endl;
+    cout << "contains 0:  " << bst_search(tree, 0) << endl;
+    cout << "contains 10: " << bst_search(tree, 10) << endl;
+
+    cout << "\n--------remove 9--------\n";
+
+    bst_remove(tree, 9);
+    bst_print(tree);
+    cout << "contains 0:  " << bst_search(tree, 9) << endl;
 
     return 0;
 
