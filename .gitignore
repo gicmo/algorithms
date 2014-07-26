@@ -1,0 +1,9 @@
+# exclude build dir and files
+build
+*.o
+*.a
+*.so
+
+# exclude idea files
+.idea
+*.iml
