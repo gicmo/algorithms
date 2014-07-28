@@ -61,21 +61,122 @@
   \titlepage
 \end{frame}
 
-\begin{frame}{Outline}
-  \tableofcontents
+%\begin{frame}{Outline}
+%  \tableofcontents
+%\end{frame}
+
+
+%% Analysis of Algorithms
+\begin{frame}
+    \begin{center}
+        \begin{LARGE}
+            Analysis of Algorithms
+        \end{LARGE}
+    \end{center}
+\end{frame}
+
+\begin{frame}{Worst case analysis}
+    \begin{itemize}
+    
+        \item Many algorithms run close to their worst case.
+        
+        \item The best case is often not very significant, because many
+              algorithms perform equally well in their best case.
+              
+        \item Determine the mean performance is often not trivial.
+        
+        \item The worst case defines the upper boundary. If the resource consumption
+              is acceptable for the worst case this applies to all cases.
+              
+        \item But there are cases where it makes more sense to analyse the mean
+              performance.
+    
+    \end{itemize}
 \end{frame}
 
 
-\section{Trees as data structures}
+\begin{frame}{Big O notation}
+    \begin{itemize}
+    
+        \item The big O notation defines the upper bound of the resource
+              consumption of an algorithm depending on the size of the input $n$.
+              
+        \item $g(n)$ is the upper bound of a function $f(n)$ if there exists a constant
+              $c$ and $n_0$ such that $f(n) \leq cg(n)$ is true for every $n > n_0$.
+    
+    \end{itemize}
+\end{frame}
 
-\subsection{Introduction}
+
+\begin{frame}{Simple rules for the big O notation}
+    \begin{itemize}
+    
+        \item Dont care about constants: If $T(n) = n + 50$ is the runtime of an algorithm
+              the constant factor for $n = 1024$ is less than 5\%.
+              
+        \item Don't care about constant factors: For every input larger than 10 
+              $T_1(n) = n^2$ is already worse than $T_1(n) = 10n$.
+              
+        \item Sums are calculated using the maximum.
+    
+    \end{itemize}
+\end{frame}
 
 
-\section{Binary search tree (BST)}
+\begin{frame}{Code and the big O notation}
+    \begin{itemize}
+    
+        \item Ignore everything that is not a loop where the number of cycles depends
+              on the input.
+              
+        \item Ignore everything that is not a recursion where the depth depends on 
+              the input.
+              
+    \end{itemize}
+\end{frame}
 
-\subsection{Introduction}
 
-\begin{frame}[t]{What is a BST}
+\begin{frame}[fragile]{Code and the big O notation}
+\begin{cppcode}
+int a[n];
+
+for (int i = 0; i < n; i++)     // O(?)
+    a[i] = random();
+
+for (int i = 1; i < n; i++) {   // O(?)
+    int tmp = a[i];
+    int j = i;
+    while (j > 1 && a[j] > tmp) {
+        a[j] = a[j - 1];
+        j--;
+    }
+    a[j] = tmp;
+}
+\end{cppcode}
+\end{frame}
+
+
+%% Trees as data structures
+\begin{frame}
+    \begin{center}
+        \begin{LARGE}
+            Trees as data structures
+        \end{LARGE}
+    \end{center}
+\end{frame}
+
+
+%% Binary search tree (BST)
+\begin{frame}
+    \begin{center}
+        \begin{LARGE}
+            Binary search tree (BST)
+        \end{LARGE}
+    \end{center}
+\end{frame}
+
+
+\begin{frame}{What is a BST}
     \begin{itemize}
         \item Each node has a left child, right child and some value.
         \item Each value is only contained once (represents a set).
@@ -84,8 +185,6 @@
     \end{itemize}
 \end{frame}
 
-
-\subsection{Implementation}
 
 \begin{frame}[fragile]{Basic BST node structure}
 \begin{cppcode}
@@ -120,11 +219,18 @@ void bst_add(bst *&tree, int value, bst *parent) {
 \end{frame}
 
 
-\section{Heaps}
+%% Heaps
+\begin{frame}
+    \begin{center}
+        \begin{LARGE}
+            Heaps (BST)
+        \end{LARGE}
+    \end{center}
+\end{frame}
 
-\subsection{Introduction}
-
-\subsection{Implemantation}
+\begin{frame}[fragile]{What is a Heap?}
+TODO
+\end{frame}
 
 
 \end{document}
