@@ -12,15 +12,15 @@ struct bst {
     bst *parent;
     bst *left;
     bst *right;
-
-    bst(int value, bst *parent=nullptr, bst *left=nullptr, bst * right=nullptr);
 };
+
+bst *bst_new(int value, bst *parent=nullptr, bst *left=nullptr, bst *right=nullptr);
 
 void bst_print(bst *tree);
 
 void bst_add(bst *&tree, int value, bst *parent=nullptr);
 
-int bst_depth(bst *tree, int depth=0);
+int  bst_depth(bst *tree, int depth=0);
 
 void bst_remove(bst* tree, int value);
 

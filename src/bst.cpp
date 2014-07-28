@@ -10,9 +10,16 @@
 
 using namespace std;
 
-bst::bst(int value, bst *parent, bst *left, bst *right)
-    : value(value), parent(parent), left(left), right(right)
-{}
+bst *bst_new(int value, bst *parent, bst *left, bst *right) {
+    bst *node = new bst;
+
+    node->value  = value;
+    node->parent = parent;
+    node->left   = left;
+    node->right  = right;
+
+    return node;
+}
 
 void bst_print(bst *tree) {
     int depth_max = bst_depth(tree);
@@ -57,7 +64,7 @@ void bst_print(bst *tree) {
 
 void bst_add(bst *&tree, int value, bst *parent) {
     if (!tree)
-        tree = new bst(value, parent);
+        tree = bst_new(value, parent);
     else if (value < tree->value)
         bst_add(tree->left, value, tree);
     else if (value > tree->value)
