@@ -219,6 +219,38 @@ void bst_add(bst *&tree, int value, bst *parent) {
 \end{frame}
 
 
+\begin{frame}[fragile]{Remove node from BST}
+\begin{cppcode*}{fontsize=\tiny}
+bool bst_remove(bst *&tree, int value) {
+    if (!tree)
+        return false;
+    else if (value < tree->value)
+        return bst_remove(tree->left, value);
+    else if (value > tree->value)
+        return bst_remove(tree->right, value);
+
+    bst *tmp = tree;
+    if (!tree->left && !tree->right) {
+        tree = nullptr;
+    } else if (tree->left && !tree->right) {
+        tree->left->parent = tree->parent;
+        tree = tree->left;
+    } else if (!tree->left && tree->right) {
+        tree->right->parent = tree->parent;
+        tree = tree->right;
+    } else {
+        bst *tmp_right = tree->right;
+        tree->left->parent = tree->parent;
+        tree = tree->left;
+        bst_add_node(tree, tmp_right, tree->parent);
+    }
+    delete tmp;
+
+    return true;
+}
+\end{cppcode*}
+\end{frame}
+
 %% Heaps
 \begin{frame}
     \begin{center}

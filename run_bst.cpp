@@ -40,11 +40,11 @@ int main(int argc, char **argv) {
     cout << "contains 0:  " << bst_search(tree, 0) << endl;
     cout << "contains 10: " << bst_search(tree, 10) << endl;
 
-    cout << "\n--------remove 9--------\n";
+    cout << "\n--------remove 5--------\n";
 
-    bst_remove(tree, 9);
+    bst_remove(tree, 5);
     bst_print(tree);
-    cout << "contains 0:  " << bst_search(tree, 9) << endl;
+    cout << "contains 0:  " << bst_search(tree, 3) << endl;
 
     return 0;
 

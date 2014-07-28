@@ -62,13 +62,20 @@ void bst_print(bst *tree) {
     cout << endl;
 }
 
+void bst_add_node(bst *&tree, bst *node, bst *parent) {
+    if (!tree) {
+        node->parent = parent;
+        tree = node;
+    } else if (node->value < tree->value) {
+        bst_add_node(tree->left, node, tree);
+    } else if (node->value > tree->value) {
+        bst_add_node(tree->right, node, tree);
+    }
+}
+
 void bst_add(bst *&tree, int value, bst *parent) {
-    if (!tree)
-        tree = bst_new(value, parent);
-    else if (value < tree->value)
-        bst_add(tree->left, value, tree);
-    else if (value > tree->value)
-        bst_add(tree->right, value, tree);
+    bst* node = bst_new(value);
+    bst_add_node(tree, node, parent);
 }
 
 int bst_depth(bst *tree, int depth) {
@@ -82,8 +89,33 @@ int bst_depth(bst *tree, int depth) {
     return (left > right) ? left : right;
 }
 
-void bst_remove(bst *tree, int value) {
 
+bool bst_remove(bst *&tree, int value) {
+    if (!tree)
+        return false;
+    else if (value < tree->value)
+        return bst_remove(tree->left, value);
+    else if (value > tree->value)
+        return bst_remove(tree->right, value);
+
+    bst *tmp = tree;
+    if (!tree->left && !tree->right) {
+        tree = nullptr;
+    } else if (tree->left && !tree->right) {
+        tree->left->parent = tree->parent;
+        tree = tree->left;
+    } else if (!tree->left && tree->right) {
+        tree->right->parent = tree->parent;
+        tree = tree->right;
+    } else {
+        bst *tmp_right = tree->right;
+        tree->left->parent = tree->parent;
+        tree = tree->left;
+        bst_add_node(tree, tmp_right, tree->parent);
+    }
+    delete tmp;
+
+    return true;
 }
 
 bool bst_search(bst *tree, int value) {

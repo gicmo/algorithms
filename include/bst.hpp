@@ -22,8 +22,8 @@ void bst_add(bst *&tree, int value, bst *parent=nullptr);
 
 int  bst_depth(bst *tree, int depth=0);
 
-void bst_remove(bst* tree, int value);
+bool bst_remove(bst *&tree, int value);
 
-bool bst_search(bst* tree, int value);
+bool bst_search(bst *tree, int value);
 
 #endif
