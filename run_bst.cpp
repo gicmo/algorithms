@@ -12,7 +12,7 @@ int main(int argc, char **argv) {
 
     cout << "\n------empty tree-------\n\n";
 
-    bst *tree = nullptr;
+    bst<int> *tree = nullptr;
     cout << "depth:\t" << bst_depth(tree) << endl;
 
     cout << "\n------add numbers------\n\n";
