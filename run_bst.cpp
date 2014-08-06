@@ -32,7 +32,7 @@ int main(int argc, char **argv) {
 
     cout << "\n---------search---------\n\n";
 
-    cout << "contains 7:  " << tree.search(7) << endl;
+    cout << boolalpha;
     cout << "contains 8:  " << tree.search(8) << endl;
     cout << "contains 6:  " << tree.search(6) << endl;
     cout << "contains 5:  " << tree.search(5) << endl;
