@@ -12,39 +12,39 @@ int main(int argc, char **argv) {
 
     cout << "\n------empty tree-------\n\n";
 
-    bst<int> *tree = nullptr;
-    cout << "depth:\t" << bst_depth(tree) << endl;
+    bst<int> tree{};
+    cout << "depth:\t" << tree.depth() << endl;
 
     cout << "\n------add numbers------\n\n";
 
-    bst_add(tree, 5);
-    bst_add(tree, 3);
-    bst_add(tree, 2);
-    bst_add(tree, 1);
-    bst_add(tree, 4);
-    bst_add(tree, 7);
-    bst_add(tree, 6);
-    bst_add(tree, 8);
-    bst_add(tree, 9);
+    tree.add(5);
+    tree.add(3);
+    tree.add(2);
+    tree.add(1);
+    tree.add(4);
+    tree.add(7);
+    tree.add(6);
+    tree.add(8);
+    tree.add(9);
 
-    cout << "depth:\t" << bst_depth(tree) << endl;
-    bst_print(tree);
+    cout << "depth:\t" << tree.depth() << endl;
+    tree.print();
 
     cout << "\n---------search---------\n\n";
 
-    cout << "contains 7:  " << bst_search(tree, 7) << endl;
-    cout << "contains 8:  " << bst_search(tree, 8) << endl;
-    cout << "contains 6:  " << bst_search(tree, 6) << endl;
-    cout << "contains 5:  " << bst_search(tree, 5) << endl;
-    cout << "contains 1:  " << bst_search(tree, 1) << endl;
-    cout << "contains 0:  " << bst_search(tree, 0) << endl;
-    cout << "contains 10: " << bst_search(tree, 10) << endl;
+    cout << "contains 7:  " << tree.search(7) << endl;
+    cout << "contains 8:  " << tree.search(8) << endl;
+    cout << "contains 6:  " << tree.search(6) << endl;
+    cout << "contains 5:  " << tree.search(5) << endl;
+    cout << "contains 1:  " << tree.search(1) << endl;
+    cout << "contains 0:  " << tree.search(0) << endl;
+    cout << "contains 10: " << tree.search(10) << endl;
 
     cout << "\n--------remove 5--------\n";
 
-    bst_remove(tree, 5);
-    bst_print(tree);
-    cout << "contains 0:  " << bst_search(tree, 3) << endl;
+    tree.remove(5);
+    tree.print();
+    cout << "contains 0:  " << tree.search(3) << endl;
 
     return 0;
 

@@ -12,41 +12,72 @@
 
 
 template<typename T>
-struct bst {
+struct bst_node {
     T value;
 
-    bst<T> *parent;
-    bst<T> *left;
-    bst<T> *right;
-};
+    bst_node<T> *parent;
+    bst_node<T> *left;
+    bst_node<T> *right;
 
+};
 
 //prototypes
 
 template<typename T>
-bst<T> *bst_new(T value, bst<T> *parent=nullptr, bst<T> *left=nullptr, bst<T> *right=nullptr);
+bst_node<T> *bst_new(T value, bst_node<T> *parent=nullptr, bst_node<T> *left=nullptr, bst_node<T> *right=nullptr);
 
 template<typename T>
-void bst_print(bst<T> *tree);
+void bst_print(bst_node<T> *tree);
 
 template<typename T>
-void bst_add(bst<T> *&tree, T value, bst<T> *parent=nullptr);
+void bst_add(bst_node<T> *&tree, T value, bst_node<T> *parent=nullptr);
 
 template<typename T>
-int  bst_depth(bst<T> *tree, int depth=0);
+int  bst_depth(bst_node<T> *tree, int depth=0);
 
 template<typename T>
-bool bst_remove(bst<T> *&tree, T value);
+bool bst_remove(bst_node<T> *&tree, T value);
 
 template<typename T>
-bool bst_search(bst<T> *tree, T value);
+bool bst_search(bst_node<T> *tree, T value);
+
+
+//
+template<typename T>
+class bst {
+
+public:
+    bst() : root(nullptr) { }
+
+    void add(T value) {
+        bst_add(root, value);
+    }
+
+    void remove(T value) {
+        bst_remove(root, value);
+    }
+
+    bool search(T value) {
+        return bst_search(root, value);
+    }
+
+    int depth() {
+        return bst_depth(root);
+    }
+
+    void print() {
+        bst_print(root);
+    }
+private:
+    bst_node<T> *root;
+};
 
 
 //implementation
 
 template<typename T>
-bst<T> *bst_new(T value, bst<T> *parent, bst<T> *left, bst<T> *right) {
-    bst<T> *node = new bst<T>();
+bst_node<T> *bst_new(T value, bst_node<T> *parent, bst_node<T> *left, bst_node<T> *right) {
+    bst_node<T> *node = new bst_node<T>();
 
     node->value  = value;
     node->parent = parent;
@@ -57,11 +88,11 @@ bst<T> *bst_new(T value, bst<T> *parent, bst<T> *left, bst<T> *right) {
 }
 
 template<typename T>
-void bst_print(bst<T> *tree) {
+void bst_print(bst_node<T> *tree) {
     int depth_max = bst_depth(tree);
 
-    std::queue<bst<T> *> level_curr;
-    std::queue<bst<T> *> level_next;
+    std::queue<bst_node<T> *> level_curr;
+    std::queue<bst_node<T> *> level_next;
 
     level_curr.push(tree);
 
@@ -74,7 +105,7 @@ void bst_print(bst<T> *tree) {
 
         std::cout << start;
         while(!level_curr.empty()) {
-            bst<T> *node = level_curr.front();
+            bst_node<T> *node = level_curr.front();
             level_curr.pop();
 
             if (node) {
@@ -92,14 +123,14 @@ void bst_print(bst<T> *tree) {
         std::cout << std::endl;
 
         level_curr = level_next;
-        level_next = std::queue<bst<T> *>();
+        level_next = std::queue<bst_node<T> *>();
     }
 
     std::cout << std::endl;
 }
 
 template<typename T>
-void bst_add_node(bst<T> *&tree, bst<T> *node, bst<T> *parent) {
+void bst_add_node(bst_node<T> *&tree, bst_node<T> *node, bst_node<T> *parent) {
     if (!tree) {
         node->parent = parent;
         tree = node;
@@ -111,13 +142,13 @@ void bst_add_node(bst<T> *&tree, bst<T> *node, bst<T> *parent) {
 }
 
 template<typename T>
-void bst_add(bst<T> *&tree, T value, bst<T> *parent) {
-    bst<T>* node = bst_new(value);
+void bst_add(bst_node<T> *&tree, T value, bst_node<T> *parent) {
+    bst_node<T>* node = bst_new(value);
     bst_add_node(tree, node, parent);
 }
 
 template<typename T>
-int bst_depth(bst<T> *tree, int depth) {
+int bst_depth(bst_node<T> *tree, int depth) {
     if (!tree)
         return depth;
 
@@ -130,7 +161,7 @@ int bst_depth(bst<T> *tree, int depth) {
 
 
 template<typename T>
-bool bst_remove(bst<T> *&tree, T value) {
+bool bst_remove(bst_node<T> *&tree, T value) {
     if (!tree)
         return false;
     else if (value < tree->value)
@@ -138,7 +169,7 @@ bool bst_remove(bst<T> *&tree, T value) {
     else if (value > tree->value)
         return bst_remove(tree->right, value);
 
-    bst<T> *tmp = tree;
+    bst_node<T> *tmp = tree;
     if (!tree->left && !tree->right) {
         tree = nullptr;
     } else if (tree->left && !tree->right) {
@@ -148,7 +179,7 @@ bool bst_remove(bst<T> *&tree, T value) {
         tree->right->parent = tree->parent;
         tree = tree->right;
     } else {
-        bst<T> *tmp_right = tree->right;
+        bst_node<T> *tmp_right = tree->right;
         tree->left->parent = tree->parent;
         tree = tree->left;
         bst_add_node(tree, tmp_right, tree->parent);
@@ -160,7 +191,7 @@ bool bst_remove(bst<T> *&tree, T value) {
 
 
 template<typename T>
-bool bst_search(bst<T> *tree, T value) {
+bool bst_search(bst_node<T> *tree, T value) {
     if (!tree)
         return false;
     else if (value < tree->value)
